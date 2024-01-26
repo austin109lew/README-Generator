@@ -84,12 +84,55 @@ const questions = [
     `;
   }
   
-  // TODO: Create a function to write README file
   function writeToFile(fileName, data) {
-    fs.writeFileSync(fileName, data, (err) =>
-      err ? console.error(err) : console.log('README generated successfully!')
-    );
+    if (fs.existsSync(fileName)) {
+      inquirer
+        .prompt({
+          type: 'confirm',
+          name: 'overwrite',
+          message: 'A README file with this name already exists. Do you want to overwrite it?',
+          default: false,
+        })
+        .then((answers) => {
+          if (answers.overwrite) {
+            writeFile(fileName, data);
+          } else {
+            console.log('Please choose a different filename or rename the existing README file.');
+          }
+        });
+    } else {
+      writeFile(fileName, data);
+    }
   }
+
+  function promptForNewFileName(data) {
+    inquirer
+      .prompt({
+        type: 'input',
+        name: 'newFileName',
+        message: 'Enter a new filename for your README (including extension):',
+      })
+      .then((answers) => {
+        const newFileName = answers.newFileName.trim();
+        if (newFileName === '') {
+          console.log('Invalid filename. Please try again.');
+          promptForNewFileName(data);
+        } else {
+          writeToFile(newFileName, data);
+        }
+      });
+  }
+  
+  function writeFile(fileName, data) {
+    fs.writeFileSync(fileName, data, (err) => {
+      if (err) {
+        console.error(err);
+      } else {
+        console.log(`README file "${fileName}" generated successfully!`);
+      }
+    });
+  }
+  
   
   // TODO: Create a function to initialize app
   function init() {
