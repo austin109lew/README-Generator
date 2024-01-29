@@ -1,27 +1,27 @@
 
-  # b
+  # Readme Generator
   
   ## Description
-  b
+  Its a project to generate a professional readme using the node.js inquirer package
   
   ## Installation
-  b
+  by installing node.js
   
   ## Usage
-  b
+  to generate professional readmes
   
   ## Contributing
-  b
+  me
   
   ## License
-  b
+  MIT
 
   ## Table of Contents
-  b  
+  None  
 
   ## Tests
-  b
+  I tested through the integrated terminal
 
   ## Questions
-  b
+  no
     
